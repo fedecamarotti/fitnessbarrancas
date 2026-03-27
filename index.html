@@ -146,11 +146,19 @@ footer p{font-size:.75rem;color:var(--muted)}
 .wa-float:hover{transform:scale(1.08)}
 @media(max-width:900px){
   nav{padding:1rem 1.2rem}.nav-links{display:none}
-  .hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem}.hero::after{display:none}.hero-left{padding-right:0}.hero-right{padding:1.5rem 0 0}
-  .act-grid{grid-template-columns:1fr 1fr}.flip-wrap{aspect-ratio:1/1}
-  .planes-grid,.test-grid,.contacto-wrap{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr;padding:5rem 1.5rem 2.5rem;height:auto;max-height:none}.hero::after{display:none}.hero-left{padding-right:0}.hero-right{display:none}
+  .act-grid{grid-template-columns:1fr 1fr;gap:1px}
+  .flip-wrap{aspect-ratio:3/5}
+  .act-grid .flip-wrap:last-child{grid-column:1 / -1;max-width:50%;margin:0 auto;width:100%}
+  .planes-grid,.contacto-wrap{grid-template-columns:1fr}
+  .test-track .test-card{flex:0 0 100%;aspect-ratio:1/1}
   .actividades,.planes,.horarios,.testimonios,.contacto{padding-left:1.5rem;padding-right:1.5rem}
   .wa-float{bottom:1.2rem;right:1.2rem}
+}
+/* web: carrusel cuadrado */
+@media(min-width:901px){
+  .hero-carousel{height:auto;aspect-ratio:1/1}
+  .hc-track img{height:100%;width:100%;object-fit:cover}
 }
 </style>
 </head>

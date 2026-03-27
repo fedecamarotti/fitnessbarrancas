@@ -37,6 +37,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.22);padding:1rem 2.2rem;font-family:var(--font-d);font-weight:700;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,transform .15s;text-decoration:none;display:inline-block}
 .btn-ghost:hover{border-color:var(--white);transform:translateY(-1px)}
 .hero-divider{width:40px;height:3px;background:var(--yellow);margin:2rem 0}
+.hero-carousel{width:100%;height:100%;min-height:420px;position:relative;overflow:hidden}
+.hc-track{display:flex;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.hc-track img{min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0}
+.hc-dots{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem}
+.hc-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .3s}
+.hc-dot.active{background:var(--yellow)}
 .section-header{margin-bottom:3rem}
 .section-header h2{font-family:var(--font-d);font-weight:900;font-size:clamp(2.2rem,4vw,3.2rem);text-transform:uppercase;line-height:1;letter-spacing:.01em}
 .section-header p{color:var(--muted);font-size:.95rem;line-height:1.7;margin-top:.8rem;font-weight:300;max-width:520px}
@@ -49,19 +55,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .flip-wrap{perspective:1000px;aspect-ratio:3/4;cursor:pointer}
 .flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
 .flip-wrap:hover .flip-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem}
-.flip-front{background:var(--black2)}
-.flip-back{transform:rotateY(180deg)}
-.flip-front-more{font-family:var(--font-b);font-size:.75rem;font-weight:400;color:var(--muted);margin-top:.75rem;letter-spacing:.06em}
-.flip-front-name{font-family:var(--font-d);font-weight:900;font-size:clamp(1.4rem,1.8vw,2.1rem);text-transform:uppercase;letter-spacing:.04em;text-align:center;line-height:1}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0}
+.flip-front{background:var(--black2);overflow:hidden}
+.flip-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
+.flip-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,0) 100%)}
+.flip-front-content{position:relative;z-index:1;width:100%;padding:0 1.2rem 1.2rem;display:flex;flex-direction:column;align-items:center}
+.flip-front-name{font-family:var(--font-d);font-weight:900;font-size:clamp(1.6rem,2.2vw,2.4rem);text-transform:uppercase;letter-spacing:.04em;text-align:center;line-height:1;color:#fff;margin-bottom:.4rem}
+.flip-front-more{font-family:var(--font-b);font-size:.72rem;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.08em}
+.flip-back{transform:rotateY(180deg);justify-content:center;padding:2rem 1.5rem}
 .flip-back-name{font-family:var(--font-d);font-weight:900;font-size:1.3rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.8rem;text-align:center}
 .flip-back-desc{font-size:.78rem;line-height:1.65;font-weight:400;text-align:center}
 .flip-back-tag{margin-top:1rem;border:1px solid rgba(255,255,255,.2);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .7rem}
-.flip-c1 .flip-front{background:#141414}.flip-c1 .flip-front-name{color:var(--yellow)}
-.flip-c2 .flip-front{background:#161616}.flip-c2 .flip-front-name{color:#f0f0f0}
-.flip-c3 .flip-front{background:#121212}.flip-c3 .flip-front-name{color:#9ed49e}
-.flip-c4 .flip-front{background:#181818}.flip-c4 .flip-front-name{color:#e0a868}
-.flip-c5 .flip-front{background:#131620}.flip-c5 .flip-front-name{color:#8ab4d8}
 .flip-c1 .flip-back{background:var(--yellow)}.flip-c1 .flip-back-name,.flip-c1 .flip-back-desc{color:var(--black)}.flip-c1 .flip-back-tag{border-color:rgba(0,0,0,.2);color:rgba(0,0,0,.5)}
 .flip-c2 .flip-back{background:#2a2a2a}.flip-c2 .flip-back-name{color:#f0f0f0}.flip-c2 .flip-back-desc{color:#aaa}.flip-c2 .flip-back-tag{color:#888}
 .flip-c3 .flip-back{background:#182818}.flip-c3 .flip-back-name{color:#9ed49e}.flip-c3 .flip-back-desc{color:#6a9e6a}.flip-c3 .flip-back-tag{color:#5a8a5a;border-color:rgba(100,180,100,.2)}
@@ -91,18 +95,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .plan-btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.22)!important}
 .plan-btn-dark:hover,.plan-btn-outline:hover{opacity:.8}
 .horarios{padding:6rem 2.5rem;border-bottom:1px solid var(--border)}
-.schedule-grid{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3rem;overflow-x:auto}
-.schedule-header{background:var(--black3);padding:1rem 1rem;display:grid;grid-template-columns:70px repeat(5,1fr);gap:.4rem;min-width:580px}
-.schedule-header span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
-.schedule-row{background:var(--black2);padding:.9rem 1rem;display:grid;grid-template-columns:70px repeat(5,1fr);gap:.4rem;align-items:center;border-top:1px solid var(--border);min-width:580px}
-.schedule-time{font-size:.75rem;color:var(--muted);font-weight:500;text-align:center}
-.sched-pill{font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;padding:.4rem .5rem;border-radius:2px;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill-func{background:rgba(212,226,0,.28);color:#c8d800}
-.pill-gym{background:rgba(255,255,255,.14);color:#d0d0d0}
-.pill-str{background:rgba(60,180,60,.25);color:#60d060}
-.pill-gap{background:rgba(230,120,20,.25);color:#e88030}
-.pill-rit{background:rgba(60,130,230,.28);color:#70a8f0}
-.pill-empty{background:transparent;color:transparent}
+.sched-wrap{margin-top:3rem;overflow-x:auto}
+.sched-table{width:100%;min-width:700px;border-collapse:collapse;table-layout:fixed}
+.sched-table th{font-family:var(--font-d);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:1rem 0 1.2rem;text-align:center;font-weight:400;border-bottom:1px solid rgba(255,255,255,.08)}
+.sched-table td{padding:.9rem .3rem;text-align:center;vertical-align:middle;border-bottom:1px solid rgba(255,255,255,.05);border-right:1px solid rgba(255,255,255,.04)}
+.sched-table td:last-child{border-right:none}
+.sched-table td:first-child{font-family:var(--font-d);font-size:.9rem;font-weight:400;color:rgba(255,255,255,.3);letter-spacing:.08em;border-right:1px solid rgba(255,255,255,.08)}
+.sc{font-family:var(--font-d);font-size:1.05rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.sc-func{color:#d4e200}
+.sc-gym{color:rgba(255,255,255,.75)}
+.sc-str{color:#4ade80}
+.sc-gap{color:#fb923c}
+.sc-rit{color:#60a5fa}
+.sc-empty{color:transparent}
 .testimonios{padding:6rem 2.5rem;border-bottom:1px solid var(--border)}
 .test-carousel{position:relative;margin-top:3rem}
 .test-track-wrap{overflow:hidden}
@@ -175,11 +180,40 @@ footer p{font-size:.75rem;color:var(--muted)}
     <p style="font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;">El momento del cambio es hoy</p>
   </div>
   <div class="hero-right">
-    <div style="width:100%;height:100%;min-height:420px;background:var(--black3);border:2px dashed rgba(212,226,0,0.25);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:var(--font-d);font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,226,0,0.4);">FOTO — carrusel de fotos</span>
+    <div class="hero-carousel">
+      <div class="hc-track" id="hcTrack">
+        <img src="image/portada00.jpg" alt="Fitness Barrancas">
+        <img src="image/portada01.jpg" alt="Fitness Barrancas">
+        <img src="image/portada02.jpg" alt="Fitness Barrancas">
+      </div>
+      <div class="hc-dots" id="hcDots">
+        <span class="hc-dot active"></span>
+        <span class="hc-dot"></span>
+        <span class="hc-dot"></span>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var track = document.getElementById('hcTrack');
+  var dots = document.querySelectorAll('.hc-dot');
+  var total = 3;
+  var cur = 0;
+  var timer;
+  function go(n){
+    cur = (n + total) % total;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d,i){ d.classList.toggle('active', i === cur); });
+  }
+  function next(){ go(cur + 1); }
+  timer = setInterval(next, 4000);
+  dots.forEach(function(d, i){
+    d.addEventListener('click', function(){ clearInterval(timer); go(i); timer = setInterval(next, 4000); });
+  });
+})();
+</script>
 
 <div class="band">
   <div class="band-inner">
@@ -194,23 +228,58 @@ footer p{font-size:.75rem;color:var(--muted)}
   </div>
   <div class="act-grid">
     <div class="flip-wrap flip-c1"><div class="flip-inner">
-      <div class="flip-front"><div class="flip-front-name">Funcional</div><div class="flip-front-more">+ Info</div></div>
+      <div class="flip-front">
+        <img src="image/funcional.jpg" alt="Funcional">
+        <div class="flip-front-overlay"></div>
+        <div class="flip-front-content">
+          <div class="flip-front-name">Funcional</div>
+          <div class="flip-front-more">+ Info</div>
+        </div>
+      </div>
       <div class="flip-back"><div class="flip-back-name">Funcional</div><p class="flip-back-desc">Movimientos multiarticulares de alta intensidad que mejoran fuerza, resistencia y coordinación. Clases en grupo con coach personalizado.</p><span class="flip-back-tag">Todos los niveles</span></div>
     </div></div>
     <div class="flip-wrap flip-c2"><div class="flip-inner">
-      <div class="flip-front"><div class="flip-front-name">Gym Class</div><div class="flip-front-more">+ Info</div></div>
+      <div class="flip-front">
+        <img src="image/gym.jpg" alt="Gym Class">
+        <div class="flip-front-overlay"></div>
+        <div class="flip-front-content">
+          <div class="flip-front-name">Gym Class</div>
+          <div class="flip-front-more">+ Info</div>
+        </div>
+      </div>
       <div class="flip-back"><div class="flip-back-name">Gym Class</div><p class="flip-back-desc">Entrenamiento de fuerza con máquinas y pesos libres en formato grupal. Rutinas progresivas adaptadas a tu nivel.</p><span class="flip-back-tag">Musculación · Fuerza</span></div>
     </div></div>
     <div class="flip-wrap flip-c3"><div class="flip-inner">
-      <div class="flip-front"><div class="flip-front-name">Stretching</div><div class="flip-front-more">+ Info</div></div>
+      <div class="flip-front">
+        <img src="image/stretching.jpg" alt="Stretching">
+        <div class="flip-front-overlay"></div>
+        <div class="flip-front-content">
+          <div class="flip-front-name">Stretching</div>
+          <div class="flip-front-more">+ Info</div>
+        </div>
+      </div>
       <div class="flip-back"><div class="flip-back-name">Stretching</div><p class="flip-back-desc">Clases de elongación y movilidad para mejorar la flexibilidad, recuperar el cuerpo y prevenir lesiones.</p><span class="flip-back-tag">Recuperación · Movilidad</span></div>
     </div></div>
     <div class="flip-wrap flip-c4"><div class="flip-inner">
-      <div class="flip-front"><div class="flip-front-name">GAP</div><div class="flip-front-more">+ Info</div></div>
+      <div class="flip-front">
+        <img src="image/gap.jpg" alt="GAP">
+        <div class="flip-front-overlay"></div>
+        <div class="flip-front-content">
+          <div class="flip-front-name">GAP</div>
+          <div class="flip-front-more">+ Info</div>
+        </div>
+      </div>
       <div class="flip-back"><div class="flip-back-name">GAP</div><p class="flip-back-desc">Trabajo específico de glúteos, abdomen y piernas. Clases cortas e intensas con resultados visibles y medibles.</p><span class="flip-back-tag">Tonificación</span></div>
     </div></div>
     <div class="flip-wrap flip-c5"><div class="flip-inner">
-      <div class="flip-front"><div class="flip-front-name">Ritmos Latinos</div><div class="flip-front-more">+ Info</div></div>
+      <div class="flip-front">
+        <img src="image/ritmos.jpg" alt="Ritmos Latinos">
+        <div class="flip-front-overlay"></div>
+        <div class="flip-front-content">
+          <div class="flip-front-name">Ritmos Latinos</div>
+          <div class="flip-front-more">+ Info</div>
+        </div>
+      </div>
       <div class="flip-back"><div class="flip-back-name">Ritmos Latinos</div><p class="flip-back-desc">Bailá, movete y quemá calorías al ritmo de la música latina. Una clase divertida y energética para todos los niveles.</p><span class="flip-back-tag">Cardio · Baile</span></div>
     </div></div>
   </div>
@@ -262,82 +331,97 @@ footer p{font-size:.75rem;color:var(--muted)}
     <h2>Nuestros horarios</h2>
     <p>Horarios por la mañana, mediodía, tarde y noche para que puedas venir a la clase que mejor se adapte a vos!</p>
   </div>
-  <div class="schedule-grid">
-    <div class="schedule-header">
-      <span>Hora</span><span>Lunes</span><span>Martes</span><span>Miércoles</span><span>Jueves</span><span>Viernes</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">8:00</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">9:00</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-str">Stretching</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-str">Stretching</span>
-      <span class="sched-pill pill-func">Funcional</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">10:00</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">11:00</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">12:00</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">16:00</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">17:00</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-str">Stretching</span>
-      <span class="sched-pill pill-gap">GAP</span>
-      <span class="sched-pill pill-str">Stretching</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">18:00</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-func">Funcional</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
-    <div class="schedule-row">
-      <span class="schedule-time">19:00</span>
-      <span class="sched-pill pill-str">Stretching</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-empty">—</span>
-      <span class="sched-pill pill-gym">Gym Class</span>
-      <span class="sched-pill pill-empty">—</span>
-    </div>
+  <div class="sched-wrap">
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>8:00</td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>9:00</td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+        </tr>
+        <tr>
+          <td>10:00</td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+        </tr>
+        <tr>
+          <td>11:00</td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>12:00</td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>16:00</td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>17:00</td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-gap">GAP</span></td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-rit">Ritmos</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>18:00</td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-func">Funcional</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+        <tr>
+          <td>19:00</td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+          <td><span class="sc sc-gym">Gym Class</span></td>
+          <td><span class="sc sc-str">Stretching</span></td>
+          <td><span class="sc sc-empty">—</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

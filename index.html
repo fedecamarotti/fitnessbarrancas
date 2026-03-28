@@ -9,10 +9,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#0a0a0a;--black2:#141414;--black3:#1e1e1e;
-  --white:#f5f5f0;--muted:#888;--border:rgba(255,255,255,0.08);
-  --yellow:#D4E200;--yellow-dim:rgba(212,226,0,0.12);--yellow-dim2:rgba(212,226,0,0.06);
-  --font-d:'Barlow Condensed',sans-serif;--font-b:'DM Sans',sans-serif;
+ --black:#0a0a0a;--black2:#141414;--black3:#1e1e1e;
+ --white:#f5f5f0;--muted:#888;--border:rgba(255,255,255,0.08);
+ --yellow:#D4E200;--yellow-dim:rgba(212,226,0,0.12);--yellow-dim2:rgba(212,226,0,0.06);
+ --font-d:'Barlow Condensed',sans-serif;--font-b:'DM Sans',sans-serif;
 }
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:var(--font-b);overflow-x:hidden}
@@ -35,7 +35,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .hero::after{content:'';position:absolute;right:0;top:0;bottom:0;width:50%;background:var(--black2);z-index:0}
 .hero-left{position:relative;z-index:1;padding-right:3rem}
 .hero-right{position:relative;z-index:1;padding:2rem;height:100%;display:flex;align-items:center;justify-content:center}
-.hero-carousel{width:100%;max-width:420px;height:280px;position:relative;overflow:hidden;border-radius:4px}
+.hero-carousel{width:100%;max-width:420px;height:280px;position:relative;overflow:hidden;border-radius:16px}
 .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(3rem,5.5vw,5.5rem);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:1.4rem}
 .hero h1 em{color:var(--yellow);font-style:normal;display:block}
 .hero-sub{font-size:.95rem;color:var(--muted);line-height:1.75;font-weight:300;max-width:400px;margin-bottom:2rem}
@@ -45,9 +45,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.22);padding:1rem 2.2rem;font-family:var(--font-d);font-weight:700;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,transform .15s;text-decoration:none;display:inline-block}
 .btn-ghost:hover{border-color:var(--white);transform:translateY(-1px)}
 .hero-divider{width:40px;height:3px;background:var(--yellow);margin:1.5rem 0}
-.hero-carousel{width:100%;height:320px;position:relative;overflow:hidden}
-.hc-track{display:flex;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1)}
-.hc-track img{min-width:100%;width:100%;height:100%;object-fit:cover;flex-shrink:0}
+.hc-track{display:flex;flex-direction:column;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.hc-track img{min-height:100%;height:280px;width:100%;object-fit:cover;flex-shrink:0}
 .hc-dots{position:absolute;bottom:.8rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem}
 .hc-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .3s}
 .hc-dot.active{background:var(--yellow)}
@@ -65,7 +64,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .flip-wrap:hover .flip-inner{transform:rotateY(180deg)}
 .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0}
 .flip-front{background:var(--black2);overflow:hidden}
-.flip-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%)}
+.flip-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .flip-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,0) 100%)}
 .flip-front-content{position:relative;z-index:1;width:100%;padding:0 1.2rem 1.2rem;display:flex;flex-direction:column;align-items:center}
 .flip-front-name{font-family:var(--font-d);font-weight:900;font-size:clamp(1.6rem,2.2vw,2.4rem);text-transform:uppercase;letter-spacing:.04em;text-align:center;line-height:1;color:#fff;margin-bottom:.4rem}
@@ -152,366 +151,355 @@ footer p{font-size:.75rem;color:var(--muted)}
 .wa-float{position:fixed;bottom:1.8rem;right:1.8rem;z-index:999;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s;text-decoration:none}
 .wa-float:hover{transform:scale(1.08)}
 @media(max-width:900px){
-  .dir-web{display:none}.dir-mob{display:inline}
-  nav{padding:1rem 1.2rem}.nav-links{display:none}.nav-cta{display:none}.nav-menu-btn{display:block}
-  .hero{grid-template-columns:1fr;padding:5rem 1.5rem 2.5rem;height:auto;max-height:none}.hero::after{display:none}.hero-left{padding-right:0}.hero-right{display:none}
+ .dir-web{display:none}.dir-mob{display:inline}
+ nav{padding:1rem 1.2rem}.nav-links{display:none}.nav-cta{display:none}.nav-menu-btn{display:block}
+ .hero{grid-template-columns:1fr;padding:5rem 1.5rem 2.5rem;height:auto;max-height:none}.hero::after{display:none}.hero-left{padding-right:0}.hero-right{display:none}
 
-  /* actividades mobile: lista vertical horizontal */
-  .act-grid{display:flex;flex-direction:column;gap:8px;background:none;border:none}
-  .flip-wrap{aspect-ratio:auto;height:72px;perspective:800px}
-  .act-grid .flip-wrap:last-child{max-width:none;margin:0;width:100%}
-  .flip-inner{transition:transform .5s cubic-bezier(.4,0,.2,1)}
-  .flip-wrap:hover .flip-inner,.flip-wrap.flipped .flip-inner{transform:rotateX(180deg)}
-  .flip-front,.flip-back{border-bottom:1px solid var(--border);flex-direction:row;align-items:center;justify-content:space-between;padding:0 1.2rem;backface-visibility:hidden}
-  .flip-front{gap:0}
-  .flip-back{transform:rotateX(180deg);padding:0 1.2rem;justify-content:flex-start;gap:1rem}
-  .flip-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);opacity:.35}
-  .flip-front-overlay{background:linear-gradient(to right,rgba(0,0,0,.7) 0%,rgba(0,0,0,.3) 100%)}
-  .flip-front-content{position:relative;z-index:1;width:100%;display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:0}
-  .flip-front-name{font-size:1.1rem;text-align:left;margin-bottom:0}
-  .flip-front-more{font-size:.65rem;margin-top:0;color:rgba(255,255,255,.4)}
-  .flip-back-name{font-size:.95rem;margin-bottom:0;text-align:left;white-space:nowrap}
-  .flip-back-desc{font-size:.72rem;text-align:left;line-height:1.4}
+ /* actividades mobile: lista vertical horizontal */
+ .act-grid{display:flex;flex-direction:column;gap:8px;background:none;border:none}
+ .flip-wrap{aspect-ratio:auto;height:72px;perspective:800px}
+ .act-grid .flip-wrap:last-child{max-width:none;margin:0;width:100%}
+ .flip-inner{transition:transform .5s cubic-bezier(.4,0,.2,1)}
+ .flip-wrap:hover .flip-inner,.flip-wrap.flipped .flip-inner{transform:rotateX(180deg)}
+ .flip-front,.flip-back{border-bottom:1px solid var(--border);flex-direction:row;align-items:center;justify-content:space-between;padding:0 1.2rem;backface-visibility:hidden}
+ .flip-front{gap:0}
+ .flip-back{transform:rotateX(180deg);padding:0 1.2rem;justify-content:flex-start;gap:1rem}
+ .flip-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%);opacity:.35}
+ .flip-front-overlay{background:linear-gradient(to right,rgba(0,0,0,.7) 0%,rgba(0,0,0,.3) 100%)}
+ .flip-front-content{position:relative;z-index:1;width:100%;display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:0}
+ .flip-front-name{font-size:1.1rem;text-align:left;margin-bottom:0}
+ .flip-front-more{font-size:.65rem;margin-top:0;color:rgba(255,255,255,.4)}
+ .flip-back-name{font-size:.95rem;margin-bottom:0;text-align:left;white-space:nowrap}
+ .flip-back-desc{font-size:.72rem;text-align:left;line-height:1.4}
 
-  .planes-grid,.contacto-wrap{grid-template-columns:1fr;gap:12px;background:transparent;border:none}
-  .test-track .test-card{flex:0 0 100%;aspect-ratio:1/1}
-  .actividades,.planes,.horarios,.testimonios,.contacto{padding-left:1.5rem;padding-right:1.5rem}
-  .actividades .section-header{padding-left:1.5rem;padding-right:1.5rem}
-  .actividades{padding-left:0;padding-right:0}
-  .wa-float{bottom:1.2rem;right:1.2rem}
+ .planes-grid,.contacto-wrap{grid-template-columns:1fr;gap:12px;background:transparent;border:none}
+ .test-track .test-card{flex:0 0 100%;aspect-ratio:1/1}
+ .actividades,.planes,.horarios,.testimonios,.contacto{padding-left:1.5rem;padding-right:1.5rem}
+ .actividades .section-header{padding-left:1.5rem;padding-right:1.5rem}
+ .actividades{padding-left:0;padding-right:0}
+ .wa-float{bottom:1.2rem;right:1.2rem}
 }
 /* web: carrusel tamaño fijo */
 @media(min-width:901px){
-  .hc-track img{height:100%;width:100%;object-fit:cover}
+ .hc-track img{height:100%;width:100%;object-fit:cover}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">FITNESS<span>Barrancas</span></div>
-  <ul class="nav-links">
-    <li><a href="#actividades">Actividades</a></li>
-    <li><a href="#planes">Planes</a></li>
-    <li><a href="#horarios">Horarios</a></li>
-    <li><a href="#testimonios">Testimonios</a></li>
-    <li><a href="#contacto">Encontranos</a></li>
-  </ul>
-  <button class="nav-cta" onclick="window.open('https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba.','_blank')">Probá una clase</button>
-  <button class="nav-menu-btn" id="menuBtn">Menú</button>
+ <div class="nav-logo">FITNESS<span>Barrancas</span></div>
+ <ul class="nav-links">
+ <li><a href="#actividades">Actividades</a></li>
+ <li><a href="#planes">Planes</a></li>
+ <li><a href="#horarios">Horarios</a></li>
+ <li><a href="#testimonios">Testimonios</a></li>
+ <li><a href="#contacto">Encontranos</a></li>
+ </ul>
+ <button class="nav-cta" onclick="window.open('https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba.','_blank')">Probá una clase</button>
+ <button class="nav-menu-btn" id="menuBtn">Menú</button>
 </nav>
 
 <div class="nav-mobile-menu" id="mobileMenu">
-  <a href="#actividades" class="menu-link">Actividades</a>
-  <a href="#planes" class="menu-link">Planes</a>
-  <a href="#horarios" class="menu-link">Horarios</a>
-  <a href="#testimonios" class="menu-link">Testimonios</a>
-  <a href="#contacto" class="menu-link">Encontranos</a>
-  <a href="https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba." target="_blank" class="nav-mobile-cta">Probá una clase</a>
-  <button class="nav-mobile-close" id="menuClose">✕ Cerrar</button>
+ <a href="#actividades" class="menu-link">Actividades</a>
+ <a href="#planes" class="menu-link">Planes</a>
+ <a href="#horarios" class="menu-link">Horarios</a>
+ <a href="#testimonios" class="menu-link">Testimonios</a>
+ <a href="#contacto" class="menu-link">Encontranos</a>
+ <a href="https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba." target="_blank" class="nav-mobile-cta">Probá una clase</a>
+ <button class="nav-mobile-close" id="menuClose">✕ Cerrar</button>
 </div>
 
 <section class="hero">
-  <div class="hero-left">
-    <h1>Entrená.<em>Conocé gente.</em>Divertite.</h1>
-    <p class="hero-sub">Tu mejor versión empieza hoy! Conocé nuestros distintos entrenamientos diseñados de manera personalizada, y adaptados día a día para que logres todos tus objetivos.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="window.open('https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba.','_blank')">Probá una clase gratis</button>
-      <a href="#actividades" class="btn-ghost">Ver actividades</a>
-    </div>
-    <div class="hero-divider"></div>
-    <p style="font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;">El momento del cambio es hoy</p>
-  </div>
-  <div class="hero-right">
-    <div class="hero-carousel">
-      <div class="hc-track" id="hcTrack">
-        <img src="image/portada00.jpg" alt="Fitness Barrancas">
-        <img src="image/portada01.jpg" alt="Fitness Barrancas">
-        <img src="image/portada02.jpg" alt="Fitness Barrancas">
-      </div>
-      <div class="hc-dots" id="hcDots">
-        <span class="hc-dot active"></span>
-        <span class="hc-dot"></span>
-        <span class="hc-dot"></span>
-      </div>
-    </div>
-  </div>
+ <div class="hero-left">
+ <h1>Entrená.<em>Conocé gente.</em>Divertite.</h1>
+ <p class="hero-sub">Tu mejor versión empieza hoy! Conocé nuestros distintos entrenamientos diseñados de manera personalizada, y adaptados día a día para que logres todos tus objetivos.</p>
+ <div class="hero-actions">
+ <button class="btn-primary" onclick="window.open('https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba.','_blank')">Probá una clase gratis</button>
+ <a href="#actividades" class="btn-ghost">Ver actividades</a>
+ </div>
+ <div class="hero-divider"></div>
+ <p style="font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;">El momento del cambio es hoy</p>
+ </div>
+ <div class="hero-right">
+ <div class="hero-carousel">
+ <div class="hc-track" id="hcTrack">
+ <img src="image/web-funcional.jpg" alt="Funcional">
+ <img src="image/web-gym.jpg" alt="Gym Class">
+ <img src="image/web-stretching.jpg" alt="Stretching">
+ <img src="image/web-gap.jpg" alt="GAP">
+ <img src="image/web-ritmos.jpg" alt="Ritmos Latinos">
+ </div>
+ <div class="hc-dots" id="hcDots">
+ <span class="hc-dot active"></span>
+ <span class="hc-dot"></span>
+ <span class="hc-dot"></span>
+ <span class="hc-dot"></span>
+ <span class="hc-dot"></span>
+ </div>
+ </div>
+ </div>
 </section>
 
 <script>
 (function(){
-  var track = document.getElementById('hcTrack');
-  var dots = document.querySelectorAll('.hc-dot');
-  var total = 3;
-  var cur = 0;
-  var timer;
-  function go(n){
-    cur = (n + total) % total;
-    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
-    dots.forEach(function(d,i){ d.classList.toggle('active', i === cur); });
-  }
-  function next(){ go(cur + 1); }
-  timer = setInterval(next, 4000);
-  dots.forEach(function(d, i){
-    d.addEventListener('click', function(){ clearInterval(timer); go(i); timer = setInterval(next, 4000); });
-  });
+ var track = document.getElementById('hcTrack');
+ var dots = document.querySelectorAll('.hc-dot');
+ var total = 5;
+ var cur = 0;
+ var timer;
+ function go(n){
+ cur = (n + total) % total;
+ track.style.transform = 'translateY(-' + (cur * 100) + '%)';
+ dots.forEach(function(d,i){ d.classList.toggle('active', i === cur); });
+ }
+ function next(){ go(cur + 1); }
+ timer = setInterval(next, 3500);
+ dots.forEach(function(d, i){
+ d.addEventListener('click', function(){ clearInterval(timer); go(i); timer = setInterval(next, 3500); });
+ });
 })();
 </script>
 
 <div class="band">
-  <div class="band-inner">
-    <span>Clase de prueba gratuita</span><span>·</span><span>Funcional</span><span>·</span><span>Gym Class</span><span>·</span><span>Stretching</span><span>·</span><span>Todas las edades</span><span>·</span><span>GAP</span><span>·</span><span>Ritmos Latinos</span><span>·</span><span>Clase de prueba gratuita</span><span>·</span><span>Funcional</span><span>·</span><span>Gym Class</span><span>·</span><span>Stretching</span><span>·</span><span>Todas las edades</span><span>·</span><span>GAP</span><span>·</span><span>Ritmos Latinos</span><span>·</span>
-  </div>
+ <div class="band-inner">
+ <span>Clase de prueba gratuita</span><span>·</span><span>Entrená a tu ritmo</span><span>·</span><span>Mejorá tu rendimiento</span><span>·</span><span>Todas las edades</span><span>·</span><span>Vení a probar una clase</span><span>·</span><span>Entrenamientos personalizados</span><span>·</span><span>Rutinas dinámicas</span><span>·</span><span>Ganá fuerza</span><span>·</span><span>Clase de prueba gratuita</span><span>·</span><span>Entrená a tu ritmo</span><span>·</span><span>Mejorá tu rendimiento</span><span>·</span><span>Todas las edades</span><span>·</span><span>Vení a probar una clase</span><span>·</span><span>Entrenamientos personalizados</span><span>·</span><span>Rutinas dinámicas</span><span>·</span><span>Ganá fuerza</span><span>·</span>
+ </div>
 </div>
 
 <section class="actividades" id="actividades">
-  <div class="section-header">
-    <h2>Nuestras actividades</h2>
-    <p>Conocé nuestras clases, diseñadas de manera personalizada.</p>
-  </div>
-  <div class="act-grid">
-    <div class="flip-wrap flip-c1"><div class="flip-inner">
-      <div class="flip-front">
-        <img src="image/funcional.jpg" alt="Funcional">
-        <div class="flip-front-overlay"></div>
-        <div class="flip-front-content">
-          <div class="flip-front-name">Funcional</div>
-          <div class="flip-front-more">+ Info</div>
-        </div>
-      </div>
-      <div class="flip-back"><div class="flip-back-name">Funcional</div><p class="flip-back-desc">Entrenamiento dinámico para mejorar fuerza, resistencia y coordinación.</p></div>
-    </div></div>
-    <div class="flip-wrap flip-c2"><div class="flip-inner">
-      <div class="flip-front">
-        <img src="image/gym.jpg" alt="Gym Class">
-        <div class="flip-front-overlay"></div>
-        <div class="flip-front-content">
-          <div class="flip-front-name">Gym Class</div>
-          <div class="flip-front-more">+ Info</div>
-        </div>
-      </div>
-      <div class="flip-back"><div class="flip-back-name">Gym Class</div><p class="flip-back-desc">Entrenamiento con elementos para ganar fuerza y mejorar musculatura.</p></div>
-    </div></div>
-    <div class="flip-wrap flip-c3"><div class="flip-inner">
-      <div class="flip-front">
-        <img src="image/stretching.jpg" alt="Stretching">
-        <div class="flip-front-overlay"></div>
-        <div class="flip-front-content">
-          <div class="flip-front-name">Stretching</div>
-          <div class="flip-front-more">+ Info</div>
-        </div>
-      </div>
-      <div class="flip-back"><div class="flip-back-name">Stretching</div><p class="flip-back-desc">Clases de elongación y movilidad para mejorar la flexibilidad del cuerpo.</p></div>
-    </div></div>
-    <div class="flip-wrap flip-c4"><div class="flip-inner">
-      <div class="flip-front">
-        <img src="image/gap.jpg" alt="GAP">
-        <div class="flip-front-overlay"></div>
-        <div class="flip-front-content">
-          <div class="flip-front-name">GAP</div>
-          <div class="flip-front-more">+ Info</div>
-        </div>
-      </div>
-      <div class="flip-back"><div class="flip-back-name">GAP</div><p class="flip-back-desc">Rutinas focalizadas en tonificar y fortalecer glúteos, abdomen y piernas.</p></div>
-    </div></div>
-    <div class="flip-wrap flip-c5"><div class="flip-inner">
-      <div class="flip-front">
-        <img src="image/ritmos.jpg" alt="Ritmos Latinos">
-        <div class="flip-front-overlay"></div>
-        <div class="flip-front-content">
-          <div class="flip-front-name">Ritmos Latinos</div>
-          <div class="flip-front-more">+ Info</div>
-        </div>
-      </div>
-      <div class="flip-back"><div class="flip-back-name">Ritmos Latinos</div><p class="flip-back-desc">Aprendé distintos ritmos latinos con nuestros profesionales especializados.</p></div>
-    </div></div>
-  </div>
+ <div class="section-header">
+ <h2>Nuestras actividades</h2>
+ <p>Conocé nuestras clases, diseñadas de manera personalizada.</p>
+ </div>
+ <div class="act-grid">
+ <div class="flip-wrap flip-c1"><div class="flip-inner">
+ <div class="flip-front">
+ <picture><source media="(max-width:900px)" srcset="image/mov-funcional.jpg"><img src="image/web-funcional.jpg" alt="Funcional"></picture>
+ <div class="flip-front-overlay"></div>
+ <div class="flip-front-content"><div class="flip-front-name">Funcional</div><div class="flip-front-more">+ Info</div></div>
+ </div>
+ <div class="flip-back"><div class="flip-back-name">Funcional</div><p class="flip-back-desc">Entrenamiento dinámico para mejorar fuerza, resistencia y coordinación.</p></div>
+ </div></div>
+ <div class="flip-wrap flip-c2"><div class="flip-inner">
+ <div class="flip-front">
+ <picture><source media="(max-width:900px)" srcset="image/mov-gym.jpg"><img src="image/web-gym.jpg" alt="Gym Class"></picture>
+ <div class="flip-front-overlay"></div>
+ <div class="flip-front-content"><div class="flip-front-name">Gym Class</div><div class="flip-front-more">+ Info</div></div>
+ </div>
+ <div class="flip-back"><div class="flip-back-name">Gym Class</div><p class="flip-back-desc">Entrenamiento con elementos para ganar fuerza y mejorar musculatura.</p></div>
+ </div></div>
+ <div class="flip-wrap flip-c3"><div class="flip-inner">
+ <div class="flip-front">
+ <picture><source media="(max-width:900px)" srcset="image/mov-stretching.jpg"><img src="image/web-stretching.jpg" alt="Stretching"></picture>
+ <div class="flip-front-overlay"></div>
+ <div class="flip-front-content"><div class="flip-front-name">Stretching</div><div class="flip-front-more">+ Info</div></div>
+ </div>
+ <div class="flip-back"><div class="flip-back-name">Stretching</div><p class="flip-back-desc">Clases de elongación y movilidad para mejorar la flexibilidad del cuerpo.</p></div>
+ </div></div>
+ <div class="flip-wrap flip-c4"><div class="flip-inner">
+ <div class="flip-front">
+ <picture><source media="(max-width:900px)" srcset="image/mov-gap.jpg"><img src="image/web-gap.jpg" alt="GAP"></picture>
+ <div class="flip-front-overlay"></div>
+ <div class="flip-front-content"><div class="flip-front-name">GAP</div><div class="flip-front-more">+ Info</div></div>
+ </div>
+ <div class="flip-back"><div class="flip-back-name">GAP</div><p class="flip-back-desc">Rutinas focalizadas en tonificar y fortalecer glúteos, abdomen y piernas.</p></div>
+ </div></div>
+ <div class="flip-wrap flip-c5"><div class="flip-inner">
+ <div class="flip-front">
+ <picture><source media="(max-width:900px)" srcset="image/mov-ritmos.jpg"><img src="image/web-ritmos.jpg" alt="Ritmos Latinos"></picture>
+ <div class="flip-front-overlay"></div>
+ <div class="flip-front-content"><div class="flip-front-name">Ritmos Latinos</div><div class="flip-front-more">+ Info</div></div>
+ </div>
+ <div class="flip-back"><div class="flip-back-name">Ritmos Latinos</div><p class="flip-back-desc">Aprendé distintos ritmos latinos con nuestros profesionales especializados.</p></div>
+ </div></div>
+ </div>
 </section>
 
 <section class="planes" id="planes">
-  <div class="section-header">
-    <h2>Nuestros planes</h2>
-    <p>Elegí el plan que mejor se adapte a vos!</p>
-  </div>
-  <div class="planes-grid">
-    <div class="plan-card">
-      <div class="plan-name">1 por semana</div>
-      <div class="plan-sub">(4 clases mensuales)</div>
-      <hr class="plan-sep">
-      <ul class="plan-features">
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reservá vía WhatsApp</span></li>
-      </ul>
-      <div class="plan-price-val">$35.000</div>
-    </div>
-    <div class="plan-card">
-      <div class="plan-name">2 por semana</div>
-      <div class="plan-sub">(8 clases mensuales)</div>
-      <hr class="plan-sep">
-      <ul class="plan-features">
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reservá vía WhatsApp</span></li>
-      </ul>
-      <div class="plan-price-val">$50.000</div>
-    </div>
-    <div class="plan-card featured">
-      <div class="plan-name">Pase libre</div>
-      <div class="plan-sub">(Clases ilimitadas por mes)</div>
-      <hr class="plan-sep">
-      <ul class="plan-features">
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Sin límite de clases por semana</span></li>
-        <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reserva vía WhatsApp</span></li>
-      </ul>
-      <div class="plan-price-val">$80.000</div>
-    </div>
-  </div>
-  <p style="text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--muted);">* Valores válidos desde Marzo 2026.</p>
+ <div class="section-header">
+ <h2>Nuestros planes</h2>
+ <p>Elegí el plan que mejor se adapte a vos!</p>
+ </div>
+ <div class="planes-grid">
+ <div class="plan-card">
+ <div class="plan-name">1 por semana</div>
+ <div class="plan-sub">(4 clases mensuales)</div>
+ <hr class="plan-sep">
+ <ul class="plan-features">
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reservá vía WhatsApp</span></li>
+ </ul>
+ <div class="plan-price-val">$35.000</div>
+ </div>
+ <div class="plan-card">
+ <div class="plan-name">2 por semana</div>
+ <div class="plan-sub">(8 clases mensuales)</div>
+ <hr class="plan-sep">
+ <ul class="plan-features">
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reservá vía WhatsApp</span></li>
+ </ul>
+ <div class="plan-price-val">$50.000</div>
+ </div>
+ <div class="plan-card featured">
+ <div class="plan-name">Pase libre</div>
+ <div class="plan-sub">(Clases ilimitadas por mes)</div>
+ <hr class="plan-sep">
+ <ul class="plan-features">
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Válido para todas las disciplinas</span></li>
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Sin límite de clases por semana</span></li>
+ <li class="plan-feature"><span class="plan-feature-dot"></span><span class="plan-feature-lbl">Reserva vía WhatsApp</span></li>
+ </ul>
+ <div class="plan-price-val">$80.000</div>
+ </div>
+ </div>
+ <p style="text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(--muted);">* Valores válidos desde Marzo 2026.</p>
 </section>
 
 <section class="horarios" id="horarios">
-  <div class="section-header">
-    <h2>Nuestros horarios</h2>
-    <p>Horarios por la mañana, mediodía, tarde y noche para que puedas venir a la clase que mejor se adapte a vos!</p>
-  </div>
-  <div class="sched-wrap">
-    <table class="sched-table">
-      <thead>
-        <tr>
-          <th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>8:00</td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>9:00</td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-        </tr>
-        <tr>
-          <td>10:00</td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-        </tr>
-        <tr>
-          <td>11:00</td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>12:00</td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>16:00</td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>17:00</td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-gap">GAP</span></td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-rit">Ritmos</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>18:00</td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-func">Funcional</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-        <tr>
-          <td>19:00</td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-          <td><span class="sc sc-gym">Gym Class</span></td>
-          <td><span class="sc sc-str">Stretching</span></td>
-          <td><span class="sc sc-empty">—</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+ <div class="section-header">
+ <h2>Nuestros horarios</h2>
+ <p>Horarios por la mañana, mediodía, tarde y noche para que puedas venir a la clase que mejor se adapte a vos!</p>
+ </div>
+ <div class="sched-wrap">
+ <table class="sched-table">
+ <thead>
+ <tr>
+ <th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>8:00</td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>9:00</td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ </tr>
+ <tr>
+ <td>10:00</td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ </tr>
+ <tr>
+ <td>11:00</td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>12:00</td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>16:00</td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>17:00</td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-gap">GAP</span></td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-rit">Ritmos</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>18:00</td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-func">Funcional</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ <tr>
+ <td>19:00</td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ <td><span class="sc sc-gym">Gym Class</span></td>
+ <td><span class="sc sc-str">Stretching</span></td>
+ <td><span class="sc sc-empty">—</span></td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
 </section>
 
 <section class="testimonios" id="testimonios">
-  <div class="section-header">
-    <h2>Testimonios de nuestros alumnos</h2>
-  </div>
-  <div class="test-carousel">
-    <div class="test-track-wrap">
-      <div class="test-track" id="testTrack">
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Excelente!! Los profes re copados, se fijan que hagas bien los ejercicios. Súper personalizado. Buenísimas las clases de funcional y gap."</p>
-          <div class="test-author"><div class="test-avatar">MC</div><div><div class="test-name">María Cecilia Seta</div></div></div>
-        </div>
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Gran lugar para entrenar, tanto por la calidad de las clases como por la calidez de los profesores. Totalmente distinto a los típicos lugares fríos, acá te dan bola y te arman todo personalizado, un placer total."</p>
-          <div class="test-author"><div class="test-avatar">FC</div><div><div class="test-name">Fede Camarotti</div></div></div>
-        </div>
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Recomiendo! muchas clases y los profes super atentos a cada uno."</p>
-          <div class="test-author"><div class="test-avatar">MP</div><div><div class="test-name">Matías Puiggari</div></div></div>
-        </div>
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Empecé con stretching y terminé enganchada con funcional también. El ambiente es increíble, te dan ganas de venir todos los días."</p>
-          <div class="test-author"><div class="test-avatar">LG</div><div><div class="test-name">Laura Giménez</div></div></div>
-        </div>
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Lo que más me gustó es que no te perdés entre la gente. Los profes te conocen y saben cómo te está yendo. Muy diferente a un gimnasio común."</p>
-          <div class="test-author"><div class="test-avatar">SR</div><div><div class="test-name">Santiago Romero</div></div></div>
-        </div>
-        <div class="test-card">
-          <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
-          <p class="test-text">"Las clases de ritmos latinos son una locura, me divierto un montón y encima estoy en forma. No lo cambio por nada."</p>
-          <div class="test-author"><div class="test-avatar">VT</div><div><div class="test-name">Valeria Torres</div></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="test-arrows">
-      <button class="test-arr" id="testPrev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <button class="test-arr" id="testNext"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-    </div>
-  </div>
+ <div class="section-header">
+ <h2>Testimonios de nuestros alumnos</h2>
+ </div>
+ <div class="test-carousel">
+ <div class="test-track-wrap">
+ <div class="test-track" id="testTrack">
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Excelente!! Los profes re copados, se fijan que hagas bien los ejercicios. Súper personalizado. Buenísimas las clases de funcional y gap."</p>
+ <div class="test-author"><div class="test-avatar">MC</div><div><div class="test-name">María Cecilia Seta</div></div></div>
+ </div>
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Gran lugar para entrenar, tanto por la calidad de las clases como por la calidez de los profesores. Totalmente distinto a los típicos lugares fríos, acá te dan bola y te arman todo personalizado, un placer total."</p>
+ <div class="test-author"><div class="test-avatar">FC</div><div><div class="test-name">Fede Camarotti</div></div></div>
+ </div>
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Recomiendo! muchas clases y los profes super atentos a cada uno."</p>
+ <div class="test-author"><div class="test-avatar">MP</div><div><div class="test-name">Matías Puiggari</div></div></div>
+ </div>
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Empecé con stretching y terminé enganchada con funcional también. El ambiente es increíble, te dan ganas de venir todos los días."</p>
+ <div class="test-author"><div class="test-avatar">LG</div><div><div class="test-name">Laura Giménez</div></div></div>
+ </div>
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Lo que más me gustó es que no te perdés entre la gente. Los profes te conocen y saben cómo te está yendo. Muy diferente a un gimnasio común."</p>
+ <div class="test-author"><div class="test-avatar">SR</div><div><div class="test-name">Santiago Romero</div></div></div>
+ </div>
+ <div class="test-card">
+ <div class="test-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+ <p class="test-text">"Las clases de ritmos latinos son una locura, me divierto un montón y encima estoy en forma. No lo cambio por nada."</p>
+ <div class="test-author"><div class="test-avatar">VT</div><div><div class="test-name">Valeria Torres</div></div></div>
+ </div>
+ </div>
+ </div>
+ <div class="test-arrows">
+ <button class="test-arr" id="testPrev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+ <button class="test-arr" id="testNext"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+ </div>
+ </div>
 </section>
 
 <script>
@@ -522,81 +510,81 @@ var mobileMenu = document.getElementById('mobileMenu');
 menuBtn.addEventListener('click', function(){ mobileMenu.classList.add('open'); });
 menuClose.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
 document.querySelectorAll('.menu-link, .nav-mobile-cta').forEach(function(el){
-  el.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
+ el.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
 });
 
 // flip cards mobile: solo una abierta a la vez
 document.querySelectorAll('.flip-wrap').forEach(function(card){
-  card.addEventListener('click', function(){
-    if(window.innerWidth > 900) return;
-    var isFlipped = this.classList.contains('flipped');
-    document.querySelectorAll('.flip-wrap.flipped').forEach(function(c){ c.classList.remove('flipped'); });
-    if(!isFlipped) this.classList.add('flipped');
-  });
+ card.addEventListener('click', function(){
+ if(window.innerWidth > 900) return;
+ var isFlipped = this.classList.contains('flipped');
+ document.querySelectorAll('.flip-wrap.flipped').forEach(function(c){ c.classList.remove('flipped'); });
+ if(!isFlipped) this.classList.add('flipped');
+ });
 });
 
 // carrusel testimonios
 (function(){
-  var track = document.getElementById('testTrack');
-  var cards = track.querySelectorAll('.test-card');
-  var total = cards.length;
-  var current = 0;
-  function visible(){ return window.innerWidth <= 900 ? 1 : 3; }
-  function getW(){ return track.parentElement.offsetWidth / visible(); }
-  function update(animate){
-    if(!animate) track.style.transition = 'none';
-    track.style.transform = 'translateX(-' + (current * getW()) + 'px)';
-    if(!animate) setTimeout(function(){ track.style.transition = ''; }, 50);
-  }
-  document.getElementById('testNext').addEventListener('click', function(){
-    current = (current < total - visible()) ? current + 1 : 0;
-    update(true);
-  });
-  document.getElementById('testPrev').addEventListener('click', function(){
-    current = (current > 0) ? current - 1 : total - visible();
-    update(true);
-  });
-  window.addEventListener('resize', function(){ update(false); });
+ var track = document.getElementById('testTrack');
+ var cards = track.querySelectorAll('.test-card');
+ var total = cards.length;
+ var current = 0;
+ function visible(){ return window.innerWidth <= 900 ? 1 : 3; }
+ function getW(){ return track.parentElement.offsetWidth / visible(); }
+ function update(animate){
+ if(!animate) track.style.transition = 'none';
+ track.style.transform = 'translateX(-' + (current * getW()) + 'px)';
+ if(!animate) setTimeout(function(){ track.style.transition = ''; }, 50);
+ }
+ document.getElementById('testNext').addEventListener('click', function(){
+ current = (current < total - visible()) ? current + 1 : 0;
+ update(true);
+ });
+ document.getElementById('testPrev').addEventListener('click', function(){
+ current = (current > 0) ? current - 1 : total - visible();
+ update(true);
+ });
+ window.addEventListener('resize', function(){ update(false); });
 })();
 </script>
 
 <section class="contacto" id="contacto">
-  <div class="section-header"><h2>Empezá hoy</h2></div>
-  <div class="contacto-wrap">
-    <div>
-      <div class="contacto-info">
-        <div class="info-row">
-          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-          <div><div class="info-lbl">Ubicación</div>
-          <div class="info-val">Echeverría 1582<br>Barrancas de Belgrano (CABA)</div></div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v4l3 3"/></svg></div>
-          <div><div class="info-lbl">Horarios</div><div class="info-val">Lunes a Viernes: 8:00 a 19:00 hs<br>Sábados: 9:00 a 11:00 hs</div></div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.0 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-          <div><div class="info-lbl">WhatsApp</div><div class="info-val"><a href="https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba." target="_blank" style="color:var(--yellow);text-decoration:none;">+54 9 11 6187-5488</a></div></div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-          <div><div class="info-lbl">Instagram</div><div class="info-val"><a href="https://instagram.com/fitnessbarrancas" target="_blank" style="color:var(--yellow);text-decoration:none;">@fitnessbarrancas</a></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="contacto-mapa">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.5!2d-58.4534!3d-34.5558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5b9c5e8e8e9%3A0x1!2sEcheverr%C3%ADa%201582%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </div>
+ <div class="section-header"><h2>Empezá hoy</h2></div>
+ <div class="contacto-wrap">
+ <div>
+ <div class="contacto-info">
+ <div class="info-row">
+ <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+ <div><div class="info-lbl">Ubicación</div>
+ <div class="info-val">Echeverría 1582<br>Barrancas de Belgrano (CABA)</div></div>
+ </div>
+ <div class="info-row">
+ <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v4l3 3"/></svg></div>
+ <div><div class="info-lbl">Horarios</div><div class="info-val">Lunes a Viernes: 8:00 a 19:00 hs<br>Sábados: 9:00 a 11:00 hs</div></div>
+ </div>
+ <div class="info-row">
+ <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.0 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+ <div><div class="info-lbl">WhatsApp</div><div class="info-val"><a href="https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba." target="_blank" style="color:var(--yellow);text-decoration:none;">+54 9 11 6187-5488</a></div></div>
+ </div>
+ <div class="info-row">
+ <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+ <div><div class="info-lbl">Instagram</div><div class="info-val"><a href="https://instagram.com/fitnessbarrancas" target="_blank" style="color:var(--yellow);text-decoration:none;">@fitnessbarrancas</a></div></div>
+ </div>
+ </div>
+ </div>
+ <div class="contacto-mapa">
+ <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.5!2d-58.4534!3d-34.5558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5b9c5e8e8e9%3A0x1!2sEcheverr%C3%ADa%201582%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+ </div>
+ </div>
 </section>
 
 <footer>
-  <div class="footer-logo">FITNESS<span>Barrancas</span></div>
-  <p>© 2025 Fitness Barrancas · Barrancas de Belgrano, CABA</p>
+ <div class="footer-logo">FITNESS<span>Barrancas</span></div>
+ <p>© 2025 Fitness Barrancas · Barrancas de Belgrano, CABA</p>
 </footer>
 
 <a class="wa-float" href="https://wa.me/5491161875488?text=Hola!%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20para%20tomar%20una%20clase%20de%20prueba." target="_blank" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+ <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 </body>
